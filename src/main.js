@@ -1,1 +1,1 @@
-console.log('rollup');
+console.log('rollup config');

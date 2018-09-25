@@ -80,3 +80,89 @@ npm i -D rollup-plugin-uglify         // 压缩js
 ```
 
 - 请注意，rollup-plugin-commonjs 应该用在其他插件转换你的模块之前 - 这是为了防止其他插件的改变破坏 CommonJS 的检测。
+
+## [rollup-plugin-serve](https://www.npmjs.com/package/rollup-plugin-serve) [rollup-plugin-livereload](https://www.npmjs.com/package/rollup-plugin-livereload)
+
+```js
+// rollup.config.js
+import serve from 'rollup-plugin-serve';
+import livereload from 'rollup-plugin-livereload';  // 实时刷新页面，配合 rollup-plugin-serve 使用
+
+export default {
+  input: 'entry.js',
+  output: {
+    file: 'dist/bundle.js',
+    format: ...
+  },
+  plugins: [
+    serve({
+      open: true,  // 是否打开浏览器 (default: false)
+      contentBase: './', // 入口HTML 文件位置
+      host: 'localhost',
+      port: 10001,
+    }),
+    livereload()
+  ]
+}
+```
+
+## [rollup-plugin-postcss](https://www.npmjs.com/package/rollup-plugin-postcss)
+
+```js
+// rollup.config.js
+import postcss from 'rollup-plugin-postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+
+export default {
+	plugins: [
+		postcss({
+			plugins: [autoprefixer, cssnano],
+			extract: 'dist/css/bundle.css' // 输出路径
+		})
+	]
+};
+```
+
+## Rollup ts 配置
+
+```js
+// rollup.config.js
+import typescript from 'rollup-plugin-typescript';
+
+export default {
+	input: './main.ts',
+	plugins: [typescript()]
+};
+```
+
+```js
+// rollup.config.js
+import typescript from 'rollup-plugin-typescript2'; //Rollup plugin for typescript with compiler errors.
+
+export default {
+	entry: './main.ts',
+	plugins: [typescript(/*{ plugin options }*/)]
+};
+```
+
+## .babelrc
+
+```js
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false
+    }]
+  ],
+  "plugins": ["@babel/plugin-external-helpers"]
+}
+```
+
+## npm run scripts
+
+```js
+"clean": "rimraf dist", // rm -rf dist
+"start": "npm run clean && cross-env NODE_ENV=development rollup -w -c build/rollup.config.dev.js",
+"build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.prod.js",
+```

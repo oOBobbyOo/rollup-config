@@ -1,27 +1,40 @@
 {
-  "name": "rollup-config",
+  "name": "rollup",
   "version": "1.0.0",
   "description": "",
-  "main": "rollup.config.js",
+  "main": "src/main.js",
   "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c"
+    "clean": "rimraf dist",
+    "test": "rollup -c",
+    "start": "cross-env NODE_ENV=development rollup -w -c build/rollup.config.base.js",
+    "dev": "npm run clean && cross-env NODE_ENV=development rollup -w -c build/rollup.config.dev.js",
+    "build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.prod.js"
   },
-  "author": "",
+  "author": "Bobby",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "autoprefixer": "^9.1.5",
+    "babel-eslint": "^9.0.0",
+    "cross-env": "^5.2.0",
+    "cssnano": "^4.1.0",
     "path": "^0.12.7",
     "rollup": "^0.66.0",
+    "rollup-plugin-alias": "^1.4.0",
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-filesize": "^4.0.1",
     "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-livereload": "^0.6.0",
     "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^6.0.0"
+    "rollup-plugin-serve": "^0.6.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "uglify-es": "^3.3.9"
   }
 }
